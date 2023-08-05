@@ -5,6 +5,7 @@ import {
   handelMoreOtion,
   handelSearchUser,
   cryatTwets,
+  creatfetchTwit,
 } from "../../helper/helper.js";
 
 const twitForm = document.getElementById("twitForm");
@@ -24,8 +25,8 @@ imgAccount.setAttribute(
 accountNameIMG.src =
   currentUser["img-signup"] || "../../assets/images/defualt-person-img-96.png";
 accountName.textContent = currentUser["fulln-signup"];
-likeToProfile(imgAccount, currentUser);
-likeToProfile(homeFeatureNine, currentUser);
+// likeToProfile(imgAccount, currentUser);
+// likeToProfile(homeFeatureNine, currentUser);
 
 twitTextBox.value = "";
 const tweetsArr = JSON.parse(localStorage.getItem("tweetsArr")) || [];
@@ -86,9 +87,9 @@ function addTwit(e) {
   currentTweets.data.push(twitTextBox.value);
 
   twitTextBox.value = "";
-  likeToProfile(newTwitDivBodyDetailsAUsername, currentUser);
-  likeToProfile(newTwitDivBodyDetailsAname, currentUser);
-  likeToProfile(imgTwitPerson, currentUser);
+  // likeToProfile(newTwitDivBodyDetailsAUsername, currentUser);
+  // likeToProfile(newTwitDivBodyDetailsAname, currentUser);
+  // likeToProfile(imgTwitPerson, currentUser);
 
   let isFoundTweets = false;
   tweetsArr.forEach((tweets) => {
@@ -119,40 +120,6 @@ twitForm.addEventListener("submit", (e) => {
   twitForm.addEventListener("submit", addTwit);
 });
 
-function creatfetchTwit(userDataServer, paragraphDataServer) {
-  for (let i = 0; i < userDataServer.length * 3; i++) {
-    let randomUserID = Math.ceil(Math.random() * userDataServer.length);
-    let randomUserPost = Math.ceil(Math.random() * paragraphDataServer.length);
-
-    let randomUser = userDataServer[randomUserID - 1];
-
-    let userParagraph = paragraphDataServer.find((twit) => {
-      return twit.id == randomUserPost;
-    });
-
-    let randomTime = Math.floor(Math.random() * 12);
-    let time;
-    if (randomTime == 0) {
-      randomTime = Math.ceil(Math.random() * 55);
-      time = `${randomTime}m`;
-    } else {
-      time = `${randomTime}h`;
-    }
-
-    const {
-      newTwitDiv,
-      newTwitDivBodyDetailsAUsername,
-      newTwitDivBodyDetailsAname,
-      imgTwitPerson,
-    } = createTwitPost(randomUser.name, randomUser.src, userParagraph.title);
-    newTwitDivBodyDetailsAUsername.innerHTML = ` @${randomUser.handleuser} <sup>.</sup> ${time}`;
-    twitsLest.appendChild(newTwitDiv);
-    likeToProfile(newTwitDivBodyDetailsAUsername, randomUser);
-    likeToProfile(newTwitDivBodyDetailsAname, randomUser);
-    likeToProfile(imgTwitPerson, randomUser);
-  }
-}
-
 addEventListener("scroll", () => {
   if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
     fetchData(creatfetchTwit);
@@ -163,12 +130,6 @@ addEventListener("scroll", () => {
 });
 
 // })
-function likeToProfile(ele, user) {
-  ele.addEventListener("click", () => {
-    // location.href = `profile.html`;
-    location.pathname = `/pages/Profile/profile.html`;
-  });
-}
 
 ///////////////////////search
 handelSearchUser();
@@ -181,6 +142,8 @@ document
     (e) => (location.pathname = "/pages/Profile/profile.html")
   );
 
+// fetch fake tweets
+fetchData(creatfetchTwit);
 ///////tweet more option
 handelMoreOtion(TWEETMOREOPTION);
 

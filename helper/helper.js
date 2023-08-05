@@ -228,3 +228,45 @@ export function cryatTwets(currentTweets, username, userFullName, userImg) {
   //add for new tweeets
   handelMoreOtion(TWEETMOREOPTION);
 }
+
+///////////////////////
+export function creatfetchTwit(userDataServer, paragraphDataServer) {
+  for (let i = 0; i < userDataServer.length * 3; i++) {
+    let randomUserID = Math.ceil(Math.random() * userDataServer.length);
+    let randomUserPost = Math.ceil(Math.random() * paragraphDataServer.length);
+
+    let randomUser = userDataServer[randomUserID - 1];
+
+    let userParagraph = paragraphDataServer.find((twit) => {
+      return twit.id == randomUserPost;
+    });
+
+    let randomTime = Math.floor(Math.random() * 12);
+    let time;
+    if (randomTime == 0) {
+      randomTime = Math.ceil(Math.random() * 55);
+      time = `${randomTime}m`;
+    } else {
+      time = `${randomTime}h`;
+    }
+
+    const {
+      newTwitDiv,
+      newTwitDivBodyDetailsAUsername,
+      newTwitDivBodyDetailsAname,
+      imgTwitPerson,
+    } = createTwitPost(randomUser.name, randomUser.src, userParagraph.title);
+    newTwitDivBodyDetailsAUsername.innerHTML = ` @${randomUser.handleuser} <sup>.</sup> ${time}`;
+    twitsLest.appendChild(newTwitDiv);
+    // likeToProfile(newTwitDivBodyDetailsAUsername, randomUser);
+    // likeToProfile(newTwitDivBodyDetailsAname, randomUser);
+    // likeToProfile(imgTwitPerson, randomUser);
+  }
+}
+
+////
+// export function likeToProfile(ele, user) {
+//   ele.addEventListener("click", () => {
+//     location.pathname = `/pages/Profile/profile.html`;
+//   });
+// }

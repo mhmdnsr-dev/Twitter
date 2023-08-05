@@ -1,12 +1,14 @@
-import { cryatTwets } from "../../helper/helper.js";
 import {
+  cryatTwets,
   TWEETMOREOPTION,
   handelMoreOtion,
   handelSearchUser,
+  creatfetchTwit,
 } from "../../helper/helper.js";
+import fetchData from "../../helper/Ajax.js";
 
 const profilePhoto = document.getElementById("profilePhoto");
-const twitsLest = document.getElementById("twitsLest");
+// const twitsLest = document.getElementById("twitsLest");
 const nameUser = document.getElementById("nameUser");
 const handleuser = document.getElementById("handleuser");
 const topName = document.getElementById("topName");
@@ -49,6 +51,7 @@ if (currentTweets.userId) {
   );
 }
 
+fetchData(creatfetchTwit);
 handelMoreOtion(TWEETMOREOPTION);
 handelSearchUser();
 /////
