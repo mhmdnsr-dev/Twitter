@@ -125,7 +125,7 @@ addEventListener("scroll", () => {
     fetchData(creatfetchTwit);
     setTimeout(() => {
       handelMoreOtion(TWEETMOREOPTION);
-    }, 500);
+    }, 1500);
   }
 });
 
@@ -146,8 +146,8 @@ document
 fetchData(creatfetchTwit);
 ///////tweet more option
 setTimeout(() => {
-   handelMoreOtion(TWEETMOREOPTION);
-}, 500);
+  handelMoreOtion(TWEETMOREOPTION);
+}, 1500);
 
 /////focus to write tweet
 document.querySelector(".tweetbtn").addEventListener("click", (e) => {

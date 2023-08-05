@@ -53,8 +53,8 @@ if (currentTweets.userId) {
 
 fetchData(creatfetchTwit);
 setTimeout(() => {
-   handelMoreOtion(TWEETMOREOPTION);
-}, 500);
+  handelMoreOtion(TWEETMOREOPTION);
+}, 1500);
 handelSearchUser();
 /////
 ////////////////// logout
