@@ -52,7 +52,9 @@ if (currentTweets.userId) {
 }
 
 fetchData(creatfetchTwit);
-handelMoreOtion(TWEETMOREOPTION);
+setTimeout(() => {
+   handelMoreOtion(TWEETMOREOPTION);
+}, 500);
 handelSearchUser();
 /////
 ////////////////// logout

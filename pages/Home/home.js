@@ -145,7 +145,9 @@ document
 // fetch fake tweets
 fetchData(creatfetchTwit);
 ///////tweet more option
-handelMoreOtion(TWEETMOREOPTION);
+setTimeout(() => {
+   handelMoreOtion(TWEETMOREOPTION);
+}, 500);
 
 /////focus to write tweet
 document.querySelector(".tweetbtn").addEventListener("click", (e) => {
