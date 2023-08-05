@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+﻿@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap");
 
 * {
   margin: 0;
@@ -7,7 +7,7 @@
 }
 :root {
   font-size: 62.6%;
-  font-family: 'Ubuntu', 'Merriweather', 'Fira Sans', 'Work Sans', sans-serif;
+  font-family: "Ubuntu", "Merriweather", "Fira Sans", "Work Sans", sans-serif;
 }
 body {
   position: relative;
@@ -137,9 +137,9 @@ button {
   background-color: #fff;
   border-radius: 12px;
   overflow: hidden;
-  & > .signup-msg,
+  & > div > .signup-msg,
   .login-msg {
-    text-align: center;
+    margin-top: 15px;
     font-size: 3.2rem;
     font-weight: 700;
     display: block;
@@ -150,10 +150,17 @@ button {
     padding: 0.5rem;
     border-radius: 100%;
     cursor: pointer;
+    height: fit-content;
     &:hover {
       background-color: rgba(0, 0, 0, 0.141);
     }
   }
+}
+
+.signup-box-header,
+.login-box-header {
+  display: flex;
+  gap: 17%;
 }
 
 .spinner-box {

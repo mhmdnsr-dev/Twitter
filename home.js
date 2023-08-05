@@ -1,6 +1,11 @@
-// addEventListener("load",()=>{
 import fetchData from "./Ajax.js";
 import createTwitPost from "./createTwitPost.js";
+import {
+  TWEETMOREOPTION,
+  handelMoreOtion,
+  handelSearchUser,
+  cryatTwets,
+} from "./helper.js";
 
 var twitForm = document.getElementById("twitForm");
 var twitTextBox = document.getElementById("twitTextBox");
@@ -8,16 +13,33 @@ var homeFeatureNine = document.getElementById("homeFeatureNine");
 var twitsLest = document.getElementById("twitsLest");
 var imgAccount = document.getElementById("imgAccount");
 const twitterhomeee = document.getElementById("twitterhomeee");
-const localUserData = JSON.parse(localStorage.getItem("localUserData"));
+const accountName = document.querySelector(".account-name");
+const accountNameIMG = document.querySelector(".account img");
+const users = JSON.parse(localStorage.getItem("users")) || [];
+const currentUser = users.find((user) => user.taken) || {};
 
-// var timerTwit = document.querySelector("#timerTwit")
-imgAccount.setAttribute("src", localUserData.src);
-// imgAccount.src = localUserData.src
-likeToProfile(imgAccount, localUserData);
-likeToProfile(homeFeatureNine, localUserData);
-// var twitValidationMessage = document.querySelector("#twitValidationMessage")
+imgAccount.setAttribute(
+  "src",
+  currentUser["img-signup"] || "./assets/images/defualt-person-img-96.png"
+);
+accountNameIMG.src =
+  currentUser["img-signup"] || "./assets/images/defualt-person-img-96.png";
+accountName.textContent = currentUser["fulln-signup"];
+likeToProfile(imgAccount, currentUser);
+likeToProfile(homeFeatureNine, currentUser);
+
 twitTextBox.value = "";
-
+const tweetsArr = JSON.parse(localStorage.getItem("tweetsArr")) || [];
+const currentTweets =
+  tweetsArr.find((tweets) => tweets.userId === currentUser.id) || {};
+if (currentTweets.userId) {
+  cryatTwets(
+    currentTweets,
+    currentUser["usr-signup"],
+    currentUser["fulln-signup"],
+    currentUser["img-signup"]
+  );
+}
 function addTwit(e) {
   e.preventDefault();
   let timeNow = new Date();
@@ -27,8 +49,12 @@ function addTwit(e) {
     newTwitDivBodyDetailsAUsername,
     newTwitDivBodyDetailsAname,
     imgTwitPerson,
-  } = createTwitPost(localUserData.name, localUserData.src, twitTextBox.value);
-  newTwitDivBodyDetailsAUsername.innerHTML = `${localUserData.handleuser} <sup>.</sup> 0m`;
+  } = createTwitPost(
+    currentUser["fulln-signup"],
+    currentUser["img-signup"] || "./assets/images/defualt-person-img-96.png",
+    twitTextBox.value
+  );
+  newTwitDivBodyDetailsAUsername.innerHTML = ` @${currentUser["usr-signup"]} <sup>.</sup> 0m`;
 
   setInterval(() => {
     let hour = new Date().getMinutes() - timeNow.getMinutes();
@@ -38,7 +64,7 @@ function addTwit(e) {
       minutes -= 60;
     }
 
-    newTwitDivBodyDetailsAUsername.innerHTML = `${localUserData.handleuser} <sup>.</sup> ${minutes}m`;
+    newTwitDivBodyDetailsAUsername.innerHTML = `${currentUser["usr-signup"]} <sup>.</sup> ${minutes}m`;
   }, 10000);
 
   twitsLest.prepend(newTwitDiv);
@@ -49,40 +75,38 @@ function addTwit(e) {
 
   setTimeout(() => {
     twitForm.addEventListener("submit", addTwit);
-    //  clearInterval(stopIntervalTwitBox)
-    //  timerTwit.innerHTML=""
-    //  timer = 2
   }, 5000);
-  ////////////
-  //  timerTwit.innerHTML =1
-  //  let timer =2
 
-  //  var stopIntervalTwitBox = setInterval(()=>{
-  //     timerTwit.innerHTML =timer++
+  if (!currentTweets.userId) {
+    currentTweets.userId = currentUser.id;
+    currentTweets.data = [];
+  }
+  currentTweets.data.push(twitTextBox.value);
 
-  //  },1000)
-  /////////////
-  let twit = {
-    userId: localUserData.userId,
-    title: twitTextBox.value,
-  };
   twitTextBox.value = "";
-  likeToProfile(newTwitDivBodyDetailsAUsername, localUserData);
-  likeToProfile(newTwitDivBodyDetailsAname, localUserData);
-  likeToProfile(imgTwitPerson, localUserData);
-  let twitArry = [];
-  twitArry.unshift(twit);
-  localStorage.setItem("twitArry", JSON.stringify(twitArry));
+  likeToProfile(newTwitDivBodyDetailsAUsername, currentUser);
+  likeToProfile(newTwitDivBodyDetailsAname, currentUser);
+  likeToProfile(imgTwitPerson, currentUser);
+
+  let isFoundTweets = false;
+  tweetsArr.forEach((tweets) => {
+    if (tweets.userId === currentUser.id) {
+      tweets = currentTweets;
+      isFoundTweets = true;
+    }
+  });
+  if (!isFoundTweets) {
+    tweetsArr.push(currentTweets);
+  }
+  localStorage.setItem("tweetsArr", JSON.stringify(tweetsArr));
 }
 function twitValidation(e) {
   e.preventDefault();
   var twitText = twitTextBox.value;
   twitForm.addEventListener("submit", addTwit);
-  // twitValidationMessage.innerHTML = ""
+
   if (twitText.length > 50 || twitText.length == 0) {
     twitForm.removeEventListener("submit", addTwit);
-    //  twitValidationMessage.style.color = "red"
-    //  twitValidationMessage.innerHTML = "Max lenght 30 letter"
   }
 }
 
@@ -124,47 +148,62 @@ function creatfetchTwit(userDataServer, paragraphDataServer) {
     likeToProfile(newTwitDivBodyDetailsAUsername, randomUser);
     likeToProfile(newTwitDivBodyDetailsAname, randomUser);
     likeToProfile(imgTwitPerson, randomUser);
-    
   }
 }
-console.log("fetch data ya ahmed please", fetchData);
-
-fetchData(creatfetchTwit);
 
 addEventListener("scroll", () => {
-  if (
-    document.documentElement.scrollTop ==
-    document.documentElement.scrollHeight - window.innerHeight
-  ) {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
     fetchData(creatfetchTwit);
+    setTimeout(() => {
+      handelMoreOtion(TWEETMOREOPTION);
+    }, 500);
   }
 });
 
 // })
 function likeToProfile(ele, user) {
-  console.log("user = = = ", user);
-
-  // console.log(user.srcBack);
   ele.addEventListener("click", () => {
-    location.href = `profile.html?name=${user.name}&src=${user.src}&handleuser=${user.handleuser}&srcBack=${user.srcBack}&userId=${user.userId}`;
+    // location.href = `profile.html`;
+    location.pathname = `profile.html`;
   });
 }
-function searchprofile(x, y) {
-  console.log(x, y);
-}
-const formsearch = document.querySelector("#formsearch");
-// const searchbar = document.querySelector("#searchbar");
-formsearch.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const a = formsearch.searchbar.value;
-  console.log(a);
-  formsearch.reset();
-  fetchData(function (x, y) {
-    console.log(" x= ", x, " y = ", y);
-    let FilterdSearch = x.filter((word) => {
-      return word.name === a;
-    });
-    console.log(FilterdSearch[0]);
-    location.href = `profile.html?name=${FilterdSearch[0].name}&src=${FilterdSearch[0].src}&handleuser=${FilterdSearch[0].handleuser}&srcBack=${FilterdSearch[0].srcBack}&userId=${FilterdSearch[0].userId}`;
+
+///////////////////////search
+handelSearchUser();
+
+///// redirect to profile page
+document
+  .querySelector(".profile-name")
+  .addEventListener("click", (e) => (location.pathname = "profile.html"));
+
+///////tweet more option
+handelMoreOtion(TWEETMOREOPTION);
+
+/////focus to write tweet
+document.querySelector(".tweetbtn").addEventListener("click", (e) => {
+  document.querySelector("#twitTextBox").focus();
+});
+////////////////// logout
+const logoutBord = document.createElement("div");
+logoutBord.innerHTML = `
+<span >logout</span>
+`;
+logoutBord.style = `border-radius: 9px;
+    background-color: rgb(148 149 149 / 67%);
+    position: absolute;
+    left: 0px;
+    text-align: center;
+    padding: 9px 40px;`;
+const logoutBtn = document.querySelector(".account");
+logoutBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  logoutBtn.appendChild(logoutBord);
+  logoutBord.addEventListener("click", (e) => {
+    setTimeout(() => {
+      location.pathname = "index.html";
+    }, 500);
   });
+});
+document.addEventListener("click", (e) => {
+  logoutBord.remove();
 });

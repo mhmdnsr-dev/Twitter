@@ -28,7 +28,6 @@
     />
     <!--  -->
     <title>Twitter</title>
-   
   </head>
   <body>
     <div class="overflow-box"></div>
@@ -161,12 +160,14 @@
         </nav>
       </footer>
       <div class="signup-box">
-        <img
-          src="./assets/icons/icons8-close.svg"
-          alt="close icon"
-          class="signup register-btn"
-        />
-        <span class="signup-msg">Join Twitter today</span>
+        <div class="signup-box-header">
+          <img
+            src="./assets/icons/icons8-close.svg"
+            alt="close icon"
+            class="signup register-btn"
+          />
+          <span class="signup-msg">Join Twitter today</span>
+        </div>
         <form class="form signup">
           <label for="fulln-signup">
             <span class="placeholder">Full name</span>
@@ -415,18 +416,26 @@
             <span class="input-tips"></span>
             <img class="show-password" src="./assets/icons/icons8-eye-48.png" />
           </label>
-          <label for="img">Select image:  <input type="file" id="imgUser" name="img" id="image" required accept="image/*"></label>
-          <!-- <label for="img">Select Back ground image:  <input type="file" id="img" name="img" id="BackGroundImage"></label> -->
+          <label for="img-signup">
+            <input
+              type="file"
+              accept="image/*"
+              id="img-signup"
+              name="img-signup"
+            />
+          </label>
           <button class="signup-submit-btn">Signup</button>
         </form>
       </div>
       <div class="login-box">
-        <img
-          src="./assets/icons/icons8-close.svg"
-          alt="close icon"
-          class="login register-btn"
-        />
-        <span class="login-msg">Sign in to Twitter</span>
+        <div class="login-box-header">
+          <img
+            src="./assets/icons/icons8-close.svg"
+            alt="close icon"
+            class="login register-btn"
+          />
+          <span class="login-msg">Sign in to Twitter</span>
+        </div>
         <form class="form login">
           <label for="usr-login"
             ><span class="placeholder">Email or username</span>
@@ -435,7 +444,6 @@
               minlength="5"
               id="usr-login"
               name="usr-login"
-              
               required
             /><!-- pattern="\w{5,}" -->
             <span class="input-tips"></span>
@@ -447,15 +455,13 @@
               minlength="8"
               required
               id="pw-login"
-              
               name="pw-login"
             />
             <!-- pattern="(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,}$" -->
             <span class="input-tips"></span>
             <img class="show-password" src="./assets/icons/icons8-eye-48.png" />
           </label>
-        
-        
+
           <button class="login-submit">Log in</button>
         </form>
       </div>
@@ -468,6 +474,6 @@
       </div>
     </main>
     <script defer src="Ajax.js" type="module"></script>
-     <script defer src="./index.js" type="module"></script>
+    <script defer src="./index.js" type="module"></script>
   </body>
 </html>
