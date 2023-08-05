@@ -48,17 +48,17 @@ Users should be able to:
 ### Built with
 
 - Semantic HTML5 markup
-- CSS custom properties
 - Flexbox
+- CSS Nesting
 - CSS Grid
-- Java Script
-- placeholder api
-- progressive web app (PWA)
+- Javascript
+- Placeholder api
+- Progressive web app (PWA)
 
 ### What I learned
 
 - Data (images) storage in local storage
-- Nested CSS
+- CSS Nesting
 - FileReader - Web APIs
 - ValidityState - Web APIs
 
@@ -70,7 +70,7 @@ Users should be able to:
 
 ## Author
 
+- ITI - [@ITI](https://iti.gov.eg/iti/home)
 - Mohamed Nasr- [Linkedin](https://www.linkedin.com/in/mhmdnsr-dev/)
 - Ahmed Mohamed - [GitHub](https://github.com/AhmedMohamed17)
-- ITI - [@ITI](https://iti.gov.eg/iti/home)
 - Muhammad Shaker - [GitHub](https://github.com/MuhammadShakerAlKilany)
