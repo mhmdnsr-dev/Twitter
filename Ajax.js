@@ -6,7 +6,7 @@ function fetchData(fun, isApi) {
   let paragraphDataServer = [];
   let userDataServer = [];
   let xhttp = new XMLHttpRequest();
-  xhttp.open("Get", "https://jsonplaceholder.typicode.com/posts", true);
+  xhttp.open("Get", "./placeholder-posts.json", true);
   xhttp.send();
   xhttp.onreadystatechange = function () {
     if (this.status == 200 && this.readyState == 4) {
@@ -15,7 +15,7 @@ function fetchData(fun, isApi) {
       let xhttp = new XMLHttpRequest();
       xhttp.open(
         "Get",
-        `${isApi ? "https://dummyjson.com/users" : "./users.json"}`,
+        `${isApi ? "./placeholder-users.json" : "./users.json"}`,
         true
       );
       xhttp.send();
