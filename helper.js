@@ -223,7 +223,9 @@ export function cryatTwets(currentTweets, username, userFullName, userImg) {
       tweet
     );
     newTwitDivBodyDetailsAUsername.innerHTML = `  @${username} <sup>.</sup> 3m`;
-
     twitsLest.prepend(newTwitDiv);
   });
+
+  //add for new tweeets
+  handelMoreOtion(TWEETMOREOPTION);
 }

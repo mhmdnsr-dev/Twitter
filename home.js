@@ -69,6 +69,8 @@ function addTwit(e) {
 
   twitsLest.prepend(newTwitDiv);
 
+  handelMoreOtion(TWEETMOREOPTION);
+
   if (twitTextBox.value != 0) {
     twitForm.removeEventListener("submit", addTwit);
   }
