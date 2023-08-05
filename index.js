@@ -336,7 +336,7 @@ document.querySelector(".login-box").addEventListener("submit", async (e) => {
   users.forEach((user) => {
     user.taken =
       user["usr-signup"] === formData["usr-login"] ||
-      user["usr-email"] === formData["usr-login"]
+      user["email-signup"] === formData["usr-login"]
         ? true
         : false;
   });

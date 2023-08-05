@@ -7,12 +7,11 @@ import {
   cryatTwets,
 } from "./helper.js";
 
-var twitForm = document.getElementById("twitForm");
-var twitTextBox = document.getElementById("twitTextBox");
-var homeFeatureNine = document.getElementById("homeFeatureNine");
-var twitsLest = document.getElementById("twitsLest");
-var imgAccount = document.getElementById("imgAccount");
-const twitterhomeee = document.getElementById("twitterhomeee");
+const twitForm = document.getElementById("twitForm");
+const twitTextBox = document.getElementById("twitTextBox");
+const homeFeatureNine = document.getElementById("homeFeatureNine");
+const twitsLest = document.getElementById("twitsLest");
+const imgAccount = document.getElementById("imgAccount");
 const accountName = document.querySelector(".account-name");
 const accountNameIMG = document.querySelector(".account img");
 const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -104,7 +103,7 @@ function addTwit(e) {
 }
 function twitValidation(e) {
   e.preventDefault();
-  var twitText = twitTextBox.value;
+  const twitText = twitTextBox.value;
   twitForm.addEventListener("submit", addTwit);
 
   if (twitText.length > 50 || twitText.length == 0) {
