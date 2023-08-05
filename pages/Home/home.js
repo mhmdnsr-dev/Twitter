@@ -136,7 +136,7 @@ handelSearchUser();
 
 ///// redirect to profile page
 document
-  .querySelector(".profile-name")
+  .querySelector(".home-feature.eight")
   .addEventListener(
     "click",
     (e) => (location.pathname = "/pages/Profile/profile.html")
