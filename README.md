@@ -1,6 +1,6 @@
 # Fake twitter project
 
-This is a fake twitter project for an internship in ITI❤️
+This is a fake twitter project for an internship in ITI ❤️
 
 ## Table of contents
 

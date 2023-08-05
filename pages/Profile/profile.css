@@ -1,0 +1,63 @@
+.cover-photo{
+
+    width: 100%;
+}
+.big-cov{
+    position: relative;
+    padding-bottom: 1.5rem;
+border-bottom:1px solid #e6ecf0;
+
+}
+.div-photo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    top: 130px;
+    left: 40px;
+  
+
+}
+.profile-photo{
+    width: 120px;
+  height: 120px;
+  border-radius: 50%;
+ 
+   
+}
+.span-twitter
+{
+    color:rgb(110,118,125);
+}
+.content-info{
+margin-top: 4rem;
+margin-left: 3rem;
+/* padding: 0.9rem; */
+
+}
+.following-followers{
+    margin-top: 0.9rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 40%;
+
+}
+.bold-span{
+    font-weight: bold;
+    /* vertical-align: baseline; */
+}
+.foll{
+    color:rgb(110,118,125);
+}
+.main-home{
+    z-index: 500;
+}
+.back-photo{
+    width: 18px;
+    vertical-align: middle;
+}
