@@ -30,6 +30,7 @@ Users should be able to:
 - Dummy search for users
 - Delete any tweet you don't like
 - Infinite scrolling
+- This PWA can run on multiple platforms and this website can be installed on its own device
 
 ### Screenshot
 
@@ -52,6 +53,7 @@ Users should be able to:
 - CSS Grid
 - Java Script
 - placeholder api
+- progressive web app (PWA)
 
 ### What I learned
 
