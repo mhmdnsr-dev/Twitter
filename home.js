@@ -64,7 +64,7 @@ function addTwit(e) {
       minutes -= 60;
     }
 
-    newTwitDivBodyDetailsAUsername.innerHTML = `${currentUser["usr-signup"]} <sup>.</sup> ${minutes}m`;
+    newTwitDivBodyDetailsAUsername.innerHTML = ` @${currentUser["usr-signup"]} <sup>.</sup> ${minutes}m`;
   }, 10000);
 
   twitsLest.prepend(newTwitDiv);
@@ -145,7 +145,7 @@ function creatfetchTwit(userDataServer, paragraphDataServer) {
       newTwitDivBodyDetailsAname,
       imgTwitPerson,
     } = createTwitPost(randomUser.name, randomUser.src, userParagraph.title);
-    newTwitDivBodyDetailsAUsername.innerHTML = `${randomUser.handleuser} <sup>.</sup> ${time}`;
+    newTwitDivBodyDetailsAUsername.innerHTML = ` @${randomUser.handleuser} <sup>.</sup> ${time}`;
     twitsLest.appendChild(newTwitDiv);
     likeToProfile(newTwitDivBodyDetailsAUsername, randomUser);
     likeToProfile(newTwitDivBodyDetailsAname, randomUser);
