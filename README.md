@@ -33,13 +33,14 @@ Users should be able to:
 
 ### Screenshot
 
-![Screenshot for desktop design](./screenshot-img/screenshot-desktop-design.png)
-![Screenshot for desktop design](./screenshot-img/screenshot-mobile-design.png)
+![Screenshot for registration page](./assets/screenshots/01.png)
+![Screenshot for a validation](./assets/screenshots/02.png)
+![Screenshot for home page](./assets/screenshots/03.png)
 
 ### Links
 
-- Solution URL: [Github](https://github.com/monasr1997/calculator-app-main)
-- Live Site URL: [live site URL](https://monasr1997.github.io/calculator-app-main/)
+- Solution URL: [Github](https://github.com/mhmdnsr-dev/Twitter)
+- Live Site URL: [live site URL](https://fake-twitter-ten.vercel.app/)
 
 ## My process
 
@@ -49,10 +50,15 @@ Users should be able to:
 - CSS custom properties
 - Flexbox
 - CSS Grid
-- Mobile-first workflow
 - Java Script
+- placeholder api
 
 ### What I learned
+
+- Data (images) storage in local storage
+- Nested CSS
+- FileReader - Web APIs
+- ValidityState - Web APIs
 
 ### Continued development
 
@@ -62,6 +68,7 @@ Users should be able to:
 
 ## Author
 
-- Website - [Mohamed Nasr](https://linkedin.com/in/monasr1997)
-- Frontend Mentor - [@monasr1997](https://www.frontendmentor.io/profile/monasr1997)
-- Twitter - [@monasr1997](https://www.twitter.com/monasr1997)
+- Mohamed Nasr- [Linkedin](https://www.linkedin.com/in/mhmdnsr-dev/)
+- Ahmed Mohamed - [GitHub](https://github.com/AhmedMohamed17)
+- ITI - [@ITI](https://iti.gov.eg/iti/home)
+- Muhammad Shaker - [GitHub](https://github.com/MuhammadShakerAlKilany)
