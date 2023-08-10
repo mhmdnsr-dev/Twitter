@@ -4,6 +4,7 @@ import {
   handelMoreOtion,
   handelSearchUser,
   creatfetchTwit,
+  userImageHandler,
 } from "../../helper/helper.js";
 import fetchData from "../../helper/Ajax.js";
 
@@ -17,8 +18,20 @@ const coverPhoto = document.getElementById("coverPhoto");
 const twitterhome = document.getElementById("twitterhome");
 const accountName = document.querySelector(".account-name");
 const accountNameIMG = document.querySelector(".account img");
+
+///////lcalstorage
+const isStaticUser = localStorage.getItem("static-user");
 const users = JSON.parse(localStorage.getItem("users")) || [];
 const currentUser = users.find((user) => user.taken) || {};
+if (isStaticUser) {
+  const staticUsers = JSON.parse(localStorage.getItem("static-users"));
+  const currentStaticUser = staticUsers.find(
+    (user) => user.handleuser === isStaticUser
+  );
+  currentUser["img-signup"] = currentStaticUser.src;
+  currentUser["fulln-signup"] = currentStaticUser.name;
+  currentUser["usr-signup"] = currentStaticUser.handleuser;
+}
 
 accountNameIMG.src =
   currentUser["img-signup"] || "../../assets/images/defualt-person-img-96.png";
@@ -26,7 +39,7 @@ accountName.textContent = currentUser["fulln-signup"];
 profilePhoto.src =
   currentUser["img-signup"] || "../../assets/images/defualt-person-img-96.png";
 nameUser.innerHTML = currentUser["fulln-signup"];
-handleuser.innerHTML = `@${currentUser["usr-signup"]}`;
+handleuser.innerHTML = `${currentUser["usr-signup"]}`;
 topName.innerHTML = currentUser["fulln-signup"];
 
 backToHome.addEventListener("click", () => {
@@ -42,7 +55,8 @@ const tweetsArr = JSON.parse(localStorage.getItem("tweetsArr")) || [];
 const currentTweets =
   tweetsArr.find((tweets) => tweets.userId === currentUser.id) || {};
 
-if (currentTweets.userId) {
+if (isStaticUser) {
+} else if (currentTweets.userId) {
   cryatTwets(
     currentTweets,
     currentUser["usr-signup"],
@@ -54,7 +68,8 @@ if (currentTweets.userId) {
 fetchData(creatfetchTwit);
 setTimeout(() => {
   handelMoreOtion(TWEETMOREOPTION);
-}, 1500);
+  userImageHandler();
+}, 2500);
 handelSearchUser();
 /////
 ////////////////// logout
@@ -80,4 +95,10 @@ logoutBtn.addEventListener("click", (e) => {
 });
 document.addEventListener("click", (e) => {
   logoutBord.remove();
+});
+
+///// redirect to profile page
+document.querySelector(".home-feature.eight").addEventListener("click", (e) => {
+  localStorage.removeItem("static-user");
+  location.pathname = "/pages/Profile/profile.html";
 });

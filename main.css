@@ -241,6 +241,25 @@ button {
       background-color: rgba(0, 0, 0, 0.804);
     }
   } */
+  & .img-input {
+    outline: 0.5px solid rgba(83, 100, 113, 0.4);
+    width: 66%;
+    border-radius: 5px;
+    height: 5rem;
+    transform: translateX(10px);
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(142, 210, 255, 0.277);
+    }
+    & .placeholder-img {
+      font-size: 1.8rem;
+      color: rgb(83, 100, 113);
+      position: absolute;
+      top: 50%;
+      left: 4%;
+      transform: translateY(-50%);
+    }
+  }
 }
 /* .login.form input[type='password'] {
   background-color: rgb(214, 214, 214);

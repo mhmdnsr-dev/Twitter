@@ -172,7 +172,7 @@ span {
   position: sticky;
   z-index: 44;
   padding: 0 16px;
-  height: 80px;
+  height: 55px;
   top: 0;
   background-color: white;
   border-bottom: 1px solid #e6ecf0;
@@ -229,6 +229,7 @@ span {
   outline: #999ea3 solid 1px;
   border-radius: 9px;
   padding: 10px;
+  resize: none;
   &:focus-visible {
     outline: #4995ca solid 2.3px;
   }
@@ -402,6 +403,11 @@ sup {
   font-size: 1.2rem;
   border-radius: 9px;
   cursor: pointer;
+  display: flex;
+  & img {
+    max-width: 30px;
+    border-radius: 9px;
+  }
   &:hover {
     background-color: #a6d6ee;
   }

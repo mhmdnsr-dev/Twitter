@@ -2,7 +2,7 @@
 // let fetchDataExport
 // addEventListener("load",()=>{
 
-function fetchData(fun, isApi) {
+function fetchData(fun) {
   let paragraphDataServer = [];
   let userDataServer = [];
   let xhttp = new XMLHttpRequest();
@@ -13,11 +13,7 @@ function fetchData(fun, isApi) {
       paragraphDataServer = JSON.parse(this.responseText);
 
       let xhttp = new XMLHttpRequest();
-      xhttp.open(
-        "Get",
-        `${isApi ? "/data/placeholder-users.json" : "/data/users.json"}`,
-        true
-      );
+      xhttp.open("Get", `${"/data/users.json"}`);
       xhttp.send();
       xhttp.onreadystatechange = function () {
         if (this.status == 200 && this.readyState == 4) {

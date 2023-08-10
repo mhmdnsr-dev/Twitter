@@ -194,8 +194,8 @@ export function handelSearchUser() {
 
   function searchUser(val, event) {
     fetchData(function (data) {
-      const targetUsersSearch = data.users.filter((user) => {
-        return val.includes(user.firstName.toLowerCase().slice(0, val.length));
+      const targetUsersSearch = data.filter((user) => {
+        return val.includes(user.name.toLowerCase().slice(0, val.length));
       });
 
       ulEl.innerHTML = "";
@@ -203,16 +203,31 @@ export function handelSearchUser() {
       targetUsersSearch.forEach((user) => {
         ulEl.insertAdjacentHTML(
           "beforeend",
-          `<li class=" user-search ">${user.firstName} ${user.lastName}<li>`
+          `<li class="user-search"><img src="${user.src}"><span>${user.name}</span><li>`
         );
-      });
-      ulEl.style = `position: absolute;list-style: none ;background-color: #ddda;width:23.5vw; padding: 15px; border-radius: 25px; top: 100%;min-height: 100px;text-align: center;backdrop-filter: blur(7px);`;
 
-      event.target.closest(".aside_input").style.position = "relative";
-      event.target.closest(".aside_input").appendChild(ulEl);
-    }, true);
+        ulEl.style = `position: absolute;list-style: none ;background-color: #ddda;width:23.5vw; padding: 15px; border-radius: 25px; top: 100%;min-height: 100px;text-align: center;backdrop-filter: blur(7px);`;
+
+        event.target.closest(".aside_input").style.position = "relative";
+        event.target.closest(".aside_input").appendChild(ulEl);
+      });
+      ///////////////////// redirect to spicefic home
+      document.querySelectorAll(".user-search").forEach((el) => {
+        el.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const user = targetUsersSearch.find(
+            (user) =>
+              user.name === e.target.closest("li").lastElementChild.textContent
+          );
+          localStorage.setItem("static-user", user.handleuser);
+
+          location.pathname = "/pages/Profile/profile.html";
+        });
+      });
+    });
   }
 }
+document.body.lastElementChild;
 
 export function cryatTwets(currentTweets, username, userFullName, userImg) {
   currentTweets.data.forEach((tweet) => {
@@ -221,7 +236,7 @@ export function cryatTwets(currentTweets, username, userFullName, userImg) {
       userImg || "./assets/images/defualt-person-img-96.png",
       tweet
     );
-    newTwitDivBodyDetailsAUsername.innerHTML = `  @${username} <sup>.</sup> 3m`;
+    newTwitDivBodyDetailsAUsername.innerHTML = `  ${username} <sup>.</sup> 3m`;
     twitsLest.prepend(newTwitDiv);
   });
 
@@ -256,7 +271,7 @@ export function creatfetchTwit(userDataServer, paragraphDataServer) {
       newTwitDivBodyDetailsAname,
       imgTwitPerson,
     } = createTwitPost(randomUser.name, randomUser.src, userParagraph.title);
-    newTwitDivBodyDetailsAUsername.innerHTML = ` @${randomUser.handleuser} <sup>.</sup> ${time}`;
+    newTwitDivBodyDetailsAUsername.innerHTML = ` ${randomUser.handleuser} <sup>.</sup> ${time}`;
     twitsLest.appendChild(newTwitDiv);
     // likeToProfile(newTwitDivBodyDetailsAUsername, randomUser);
     // likeToProfile(newTwitDivBodyDetailsAname, randomUser);
@@ -270,3 +285,30 @@ export function creatfetchTwit(userDataServer, paragraphDataServer) {
 //     location.pathname = `/pages/Profile/profile.html`;
 //   });
 // }
+
+export const userImageHandler = () => {
+  document.querySelectorAll(".post-img").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const staticUsers = JSON.parse(localStorage.getItem("static-users"));
+      const targetUserName = e.target.nextElementSibling
+        .querySelector(".tweeter-username")
+        .textContent.trim();
+      const handelTargetUserName = targetUserName.slice(
+        0,
+        targetUserName.indexOf(" ")
+      );
+      const user = staticUsers.find(
+        (user) => user.handleuser === handelTargetUserName
+      );
+      if (!user) {
+        localStorage.removeItem("static-user");
+        location.pathname = "/pages/Profile/profile.html";
+      } else {
+        localStorage.setItem("static-user", user.handleuser);
+        location.pathname = "/pages/Profile/profile.html";
+      }
+    });
+  });
+};
+// document.body.nextElementSibling

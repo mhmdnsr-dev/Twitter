@@ -6,11 +6,17 @@ import {
   handelSearchUser,
   cryatTwets,
   creatfetchTwit,
+  userImageHandler,
 } from "../../helper/helper.js";
+
+fetchData((data) => {
+  localStorage.setItem("static-users", JSON.stringify(data));
+});
 
 const twitForm = document.getElementById("twitForm");
 const twitTextBox = document.getElementById("twitTextBox");
 const homeFeatureNine = document.getElementById("homeFeatureNine");
+const accountUser = document.querySelector(".account-user");
 const twitsLest = document.getElementById("twitsLest");
 const imgAccount = document.getElementById("imgAccount");
 const accountName = document.querySelector(".account-name");
@@ -22,6 +28,7 @@ imgAccount.setAttribute(
   "src",
   currentUser["img-signup"] || "../../assets/images/defualt-person-img-96.png"
 );
+accountUser.textContent = currentUser["usr-signup"];
 accountNameIMG.src =
   currentUser["img-signup"] || "../../assets/images/defualt-person-img-96.png";
 accountName.textContent = currentUser["fulln-signup"];
@@ -55,7 +62,7 @@ function addTwit(e) {
       "../../assets/images/defualt-person-img-96.png",
     twitTextBox.value
   );
-  newTwitDivBodyDetailsAUsername.innerHTML = ` @${currentUser["usr-signup"]} <sup>.</sup> 0m`;
+  newTwitDivBodyDetailsAUsername.innerHTML = ` ${currentUser["usr-signup"]} <sup>.</sup> 0m`;
 
   setInterval(() => {
     let hour = new Date().getMinutes() - timeNow.getMinutes();
@@ -65,12 +72,13 @@ function addTwit(e) {
       minutes -= 60;
     }
 
-    newTwitDivBodyDetailsAUsername.innerHTML = ` @${currentUser["usr-signup"]} <sup>.</sup> ${minutes}m`;
+    newTwitDivBodyDetailsAUsername.innerHTML = ` ${currentUser["usr-signup"]} <sup>.</sup> ${minutes}m`;
   }, 10000);
 
   twitsLest.prepend(newTwitDiv);
 
   handelMoreOtion(TWEETMOREOPTION);
+  userImageHandler();
 
   if (twitTextBox.value != 0) {
     twitForm.removeEventListener("submit", addTwit);
@@ -125,7 +133,8 @@ addEventListener("scroll", () => {
     fetchData(creatfetchTwit);
     setTimeout(() => {
       handelMoreOtion(TWEETMOREOPTION);
-    }, 1500);
+      userImageHandler();
+    }, 2500);
   }
 });
 
@@ -135,18 +144,17 @@ addEventListener("scroll", () => {
 handelSearchUser();
 
 ///// redirect to profile page
-document
-  .querySelector(".home-feature.eight")
-  .addEventListener(
-    "click",
-    (e) => (location.pathname = "/pages/Profile/profile.html")
-  );
+document.querySelector(".home-feature.eight").addEventListener("click", (e) => {
+  localStorage.removeItem("static-user");
+  location.pathname = "/pages/Profile/profile.html";
+});
 
 // fetch fake tweets
 fetchData(creatfetchTwit);
 ///////tweet more option
 setTimeout(() => {
   handelMoreOtion(TWEETMOREOPTION);
+  userImageHandler();
 }, 1500);
 
 /////focus to write tweet
@@ -176,4 +184,15 @@ logoutBtn.addEventListener("click", (e) => {
 });
 document.addEventListener("click", (e) => {
   logoutBord.remove();
+});
+
+//////redirect from user img
+
+///////////////////////
+const twitterhome = document.getElementById("twitterhomeee");
+twitterhome.addEventListener("click", () => {
+  scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
 });

@@ -123,6 +123,7 @@ const notValid = (targetEl, msgErr) => {
     `;
   targetEl.style = `
       outline: 0.01px solid red;
+      color:initial
     `;
   targetEl.closest("label").firstElementChild.style.color = "rgb(244, 33, 46)";
 };
@@ -143,6 +144,7 @@ inputs.forEach((el) => {
       placeholdText.style.color === "rgb(83, 100, 113)"
         ? "rgb(83, 100, 113)"
         : "rgb(18, 153, 242)";
+    el.style.color = "green";
     if (twoEl) {
       const otherEl = [passwdEl, rPasswdEl].find(
         (passEl) => passEl.id !== el.id
@@ -152,6 +154,7 @@ inputs.forEach((el) => {
       otherEl.style = ``;
       otherEl.closest("label").firstElementChild.style.color =
         "rgb(83, 100, 113)";
+      otherEl.style.color = "green";
     }
   };
 
@@ -183,19 +186,19 @@ inputs.forEach((el) => {
             new FormData(e.target.closest("form"))
           );
           const takenUsrN = users.find(
-            (el) => el["usr-signup"] === formData["usr-signup"]
+            (user) => user["usr-signup"] === `@${formData["usr-signup"]}`
           );
           const takenEmail = users.find(
-            (el) => el["email-signup"] === formData["email-signup"]
+            (user) => user["email-signup"] === formData["email-signup"]
           );
           if (takenUsrN && el.id === "usr-signup") {
-            msgErr = "Username is taken ; Please enter a different one.";
+            msgErr = "The username has already been taken.";
             notValid(el, msgErr);
             isNotValid = true;
             formValid.taken = false;
           }
           if (takenEmail && el.id === "email-signup") {
-            msgErr = "Email is taken ; Please enter a different one.";
+            msgErr = "The email has already been taken.";
             notValid(el, msgErr);
             isNotValid = true;
             formValid.taken = false;
@@ -216,7 +219,10 @@ inputs.forEach((el) => {
             if (el.id === "pw-signup" || el.id === "rpw-signup") {
               valid(true);
               formValid.twoPass = true;
-            } else valid();
+            } else {
+              if (el.name === "usr-login" || el.name === "pw-login") return;
+              else valid();
+            }
           }
         }, 1000);
       },
@@ -228,7 +234,7 @@ inputs.forEach((el) => {
   // document.querySelector("#usr-login").removeEventListener("input", inputEvent);
   // document.querySelector("#pw-login").removeEventListener("input", inputEvent);
 
-  el.addEventListener("focusout", () => {
+  el.addEventListener("focusout", (e) => {
     if (
       formValid.taken === false ||
       (el.value.length > 0 && el.validity.patternMismatch) ||
@@ -237,8 +243,10 @@ inputs.forEach((el) => {
         rPasswdEl.value !== "" &&
         passwdEl.value !== rPasswdEl.value &&
         el.nextElementSibling.textContent !== "")
-    )
+    ) {
+      if (e.target.value === "") return;
       el.closest("label").firstElementChild.style.color = "rgb(244, 33, 46)";
+    }
   });
   el.addEventListener("focusin", () => {
     const targetEl = el.closest("label").firstElementChild;
@@ -280,6 +288,7 @@ const submitSignupHandler = async (e) => {
     formData["img-signup"] = fileReader.result;
     if (!inputImg.files[0]) formData["img-signup"] = null;
     formData.id = crypto.randomUUID();
+    formData["usr-signup"] = `@${formData["usr-signup"]}`;
     users.push(formData);
     localStorage.setItem("users", JSON.stringify(users));
 
@@ -294,6 +303,10 @@ const submitSignupHandler = async (e) => {
       if (placeholdText) placeholdText.style = "";
       // }
     });
+    const placeholderImg = document.querySelector(".placeholder-img");
+
+    placeholderImg.textContent = "Select your image";
+    placeholderImg.style.color = "";
   };
 
   toggleRegisterBoxs(null, true, null);
@@ -307,8 +320,8 @@ document
 //// Sign In
 document.querySelector(".login-box").addEventListener("submit", async (e) => {
   e.preventDefault();
-  const emailEl = e.target.querySelector('input[type="text"]');
-  const passwdEl = e.target.querySelector('input[type="password"]');
+  const emailEl = e.target.querySelector('input[name="usr-login"]');
+  const passwdEl = e.target.querySelector('input[name="pw-login"]');
   /// if user created new account
   const users = JSON.parse(localStorage.getItem("users"));
   const formData = Object.fromEntries(new FormData(e.target));
@@ -317,7 +330,7 @@ document.querySelector(".login-box").addEventListener("submit", async (e) => {
     user = users.find((user) => {
       return (
         user["email-signup"] === formData["usr-login"] ||
-        user["usr-signup"] === formData["usr-login"]
+        user["usr-signup"] === `@${formData["usr-login"]}`
       );
     });
   }
@@ -333,7 +346,7 @@ document.querySelector(".login-box").addEventListener("submit", async (e) => {
   //// Redirect to home
   users.forEach((user) => {
     user.taken =
-      user["usr-signup"] === formData["usr-login"] ||
+      user["usr-signup"] === `@${formData["usr-login"]}` ||
       user["email-signup"] === formData["usr-login"]
         ? true
         : false;
@@ -345,4 +358,12 @@ document.querySelector(".login-box").addEventListener("submit", async (e) => {
 
   await fakeFetching();
   location.pathname = `/pages/Home/home.html`;
+});
+
+//////////////////img input changed
+document.querySelector(".img-input input").addEventListener("change", (e) => {
+  const imgName = e.target.files[0]?.name;
+  e.target.previousElementSibling.textContent = imgName || "Select your image";
+  if (imgName) e.target.previousElementSibling.style.color = "green";
+  else e.target.previousElementSibling.style.color = "";
 });
